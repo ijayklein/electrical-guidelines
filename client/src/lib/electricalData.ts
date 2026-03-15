@@ -1,0 +1,557 @@
+// ============================================================
+// Electrical Wiring Guidelines Data
+// Design: Industrial Modernism — Copper/Amber brand, Barlow Condensed headers
+// ============================================================
+
+export type FloorPlanQuality = 'high' | 'medium' | 'low';
+export type ProtectionType = 'GFCI' | 'AFCI' | 'GFCI+AFCI' | 'None' | 'Service Only';
+
+export interface RoomElectricalData {
+  id: string;
+  name: string;
+  colorClass: string;
+  badgeColor: string;
+  icon: string;
+  necSection: string;
+  circuitType: string;
+  amperage: string;
+  protection: ProtectionType;
+  outletSpacing: string;
+  minOutlets: string;
+  lightingRequired: boolean;
+  switchType: string;
+  dedicatedCircuits: string[];
+  gfciRequired: boolean;
+  afciRequired: boolean;
+  floorPlanClues: {
+    high: string;
+    medium: string;
+    low: string;
+  };
+  keyRequirements: string[];
+  designTips: string[];
+  warnings: string[];
+  applianceCircuits?: ApplianceCircuit[];
+}
+
+export interface ApplianceCircuit {
+  name: string;
+  voltage: number;
+  amperage: number;
+  notes: string;
+}
+
+export const roomData: RoomElectricalData[] = [
+  {
+    id: 'kitchen',
+    name: 'Kitchen',
+    colorClass: 'bg-[#CDF765]/20 text-[#030424] border-[#CDF765]',
+    badgeColor: '#06004A',
+    icon: '🍳',
+    necSection: 'NEC 210.52(C)',
+    circuitType: '20A, 120V (Small Appliance)',
+    amperage: '20A',
+    protection: 'GFCI+AFCI',
+    outletSpacing: 'Every 4 ft on countertops',
+    minOutlets: '2 small-appliance circuits minimum',
+    lightingRequired: true,
+    switchType: 'Single-pole at entry',
+    dedicatedCircuits: ['Refrigerator (20A)', 'Dishwasher (20A, GFCI)', 'Garbage Disposal (20A, GFCI)', 'Microwave (20A)', 'Electric Range (50A, 240V)'],
+    gfciRequired: true,
+    afciRequired: true,
+    floorPlanClues: {
+      high: 'Countertop runs visible with sink and appliance symbols. Place outlets every 4 ft along counter runs, one on each side of the sink.',
+      medium: 'Room labeled "Kitchen." Assume L-shaped or U-shaped counter layout. Place outlets at 4-ft intervals along all counter walls. Add island outlet if room is ≥ 12 ft wide.',
+      low: 'No label. Look for: small square symbols (cabinets), plumbing fixture near a wall (sink), large open wall space (range). Treat any room adjacent to a dining area with these features as a kitchen.',
+    },
+    keyRequirements: [
+      'No countertop point more than 2 ft from an outlet (NEC 210.52(C)(1))',
+      'Any counter space ≥ 12 in. wide requires an outlet',
+      'Minimum two 20A small-appliance branch circuits',
+      'All kitchen receptacles must be GFCI protected (NEC 2023)',
+      'Island/peninsula ≥ 2 ft wide or long requires at least one outlet',
+      'Lighting on a separate 15A or 20A circuit',
+      'Minimum 8 circuits total in new kitchen construction',
+    ],
+    designTips: [
+      'Place outlets above the countertop backsplash, typically 18 in. above counter surface',
+      'Consider USB-A/C combo outlets near charging stations',
+      'Add a dedicated circuit for a coffee station or countertop appliance area',
+      'Under-cabinet lighting circuit separate from general lighting',
+    ],
+    warnings: [
+      'GFCI protection required for ALL kitchen receptacles per 2023 NEC — not just near the sink',
+      'Electric ranges require a 240V, 50A dedicated circuit — never share with other loads',
+      'Dishwasher and garbage disposal each require their own dedicated GFCI-protected circuit',
+    ],
+    applianceCircuits: [
+      { name: 'Electric Range / Cooktop', voltage: 240, amperage: 50, notes: 'Dedicated 4-wire circuit required' },
+      { name: 'Refrigerator', voltage: 120, amperage: 20, notes: 'Dedicated circuit, GFCI required' },
+      { name: 'Dishwasher', voltage: 120, amperage: 20, notes: 'Dedicated circuit, GFCI required' },
+      { name: 'Garbage Disposal', voltage: 120, amperage: 20, notes: 'Dedicated circuit, GFCI required' },
+      { name: 'Microwave (Built-in)', voltage: 120, amperage: 20, notes: 'Dedicated or shared with one other appliance' },
+      { name: 'Small Appliance Circuits (×2)', voltage: 120, amperage: 20, notes: 'Serve all countertop receptacles' },
+    ],
+  },
+  {
+    id: 'bathroom',
+    name: 'Bathroom',
+    colorClass: 'bg-[#D1E3FF]/40 text-[#030424] border-[#D1E3FF]',
+    badgeColor: '#1705E5',
+    icon: '🚿',
+    necSection: 'NEC 210.52(D)',
+    circuitType: '20A, 120V',
+    amperage: '20A',
+    protection: 'GFCI',
+    outletSpacing: 'Within 3 ft of each sink basin',
+    minOutlets: '1 per sink basin',
+    lightingRequired: true,
+    switchType: 'Single-pole at entry; separate switch for vent fan',
+    dedicatedCircuits: ['Vent Fan with Heater (20A dedicated)'],
+    gfciRequired: true,
+    afciRequired: false,
+    floorPlanClues: {
+      high: 'Toilet, sink, and tub/shower symbols visible. Place GFCI outlet within 3 ft of each sink. No outlets inside shower/tub enclosure.',
+      medium: 'Room labeled "Bath" or "WC." Assume standard layout: toilet on one wall, sink vanity, tub or shower. Place outlet near vanity wall.',
+      low: 'No label. Look for: small room (typically 50–100 sq ft), plumbing fixtures in corners, door placement. Rooms with a tub symbol are bathrooms.',
+    },
+    keyRequirements: [
+      'At least one GFCI outlet within 3 ft of each sink basin (NEC 210.52(D))',
+      'No receptacles within or directly over a tub or shower stall',
+      'All bathroom receptacles on a 20A circuit',
+      'Vent fans with built-in heaters require a dedicated 20A circuit',
+      'Light fixtures within 3 ft horizontal / 8 ft vertical of tub must be damp-rated',
+      'Fixtures subject to shower spray must be wet-rated',
+    ],
+    designTips: [
+      'Double-bowl vanities can share a single GFCI outlet placed between the two sinks',
+      'Consider a shaving outlet inside a medicine cabinet for cleaner aesthetics',
+      'Heated floor circuits require a dedicated thermostat and GFCI protection',
+      'Night-light outlet near floor level improves safety',
+    ],
+    warnings: [
+      'NO receptacles permitted inside or directly over a bathtub or shower stall',
+      'Exhaust fans with heaters MUST have their own dedicated 20A circuit',
+      'Light fixtures near tubs must carry appropriate damp or wet location ratings',
+    ],
+  },
+  {
+    id: 'bedroom',
+    name: 'Bedroom',
+    colorClass: 'bg-[#CDF765]/15 text-[#030424] border-[#CDF765]/50',
+    badgeColor: '#06004A',
+    icon: '🛏️',
+    necSection: 'NEC 210.52(A)',
+    circuitType: '15A or 20A, 120V',
+    amperage: '15A or 20A',
+    protection: 'AFCI',
+    outletSpacing: 'Every 12 ft (no point > 6 ft from outlet)',
+    minOutlets: 'Any wall ≥ 2 ft wide requires an outlet',
+    lightingRequired: true,
+    switchType: 'Single-pole at entry; 3-way if two entry points',
+    dedicatedCircuits: [],
+    gfciRequired: false,
+    afciRequired: true,
+    floorPlanClues: {
+      high: 'Bed symbol visible. Place outlets on each side of the bed (nightstand locations), one near the dresser wall, and one near the closet or TV wall.',
+      medium: 'Room labeled "Bedroom" or "Master." Assume bed on the longest uninterrupted wall. Place outlets 5–6 ft apart on that wall, plus standard spacing on remaining walls.',
+      low: 'No label. Look for: closet attached to room, room size 100–225 sq ft, not adjacent to kitchen. Apply standard 12-ft spacing rule to all walls ≥ 2 ft wide.',
+    },
+    keyRequirements: [
+      'No point along any wall more than 6 ft from a receptacle (NEC 210.52(A))',
+      'Any wall space ≥ 2 ft wide requires an outlet',
+      'AFCI protection required on all circuits (NEC 210.12)',
+      'At least one switched lighting outlet at room entry',
+      'Closet lighting: LED/CFL fixtures must be ≥ 6 in. from storage; incandescent ≥ 12 in.',
+    ],
+    designTips: [
+      'Place outlets at nightstand height (24–28 in.) on the bed wall for convenient access',
+      'Add USB-C charging outlets at nightstand locations',
+      'Consider a switched outlet for a bedside lamp if no ceiling fixture is planned',
+      'TV wall should have an outlet at mounting height (48–60 in.) and a low-voltage bracket for cable management',
+      'Master bedroom: consider a dedicated 20A circuit for window AC or space heater',
+    ],
+    warnings: [
+      'AFCI protection is mandatory — standard breakers are not code-compliant for bedrooms',
+      'Closet light fixtures have strict clearance requirements from clothing storage areas',
+    ],
+  },
+  {
+    id: 'living-room',
+    name: 'Living / Family Room',
+    colorClass: 'bg-[#D1E3FF]/30 text-[#030424] border-[#D1E3FF]/60',
+    badgeColor: '#1705E5',
+    icon: '🛋️',
+    necSection: 'NEC 210.52(A)',
+    circuitType: '15A or 20A, 120V',
+    amperage: '15A or 20A',
+    protection: 'AFCI',
+    outletSpacing: 'Every 12 ft (no point > 6 ft from outlet)',
+    minOutlets: 'Any wall ≥ 2 ft wide requires an outlet',
+    lightingRequired: true,
+    switchType: 'Single-pole at entry; 3-way if multiple entries',
+    dedicatedCircuits: ['Entertainment center (recommended 20A dedicated)'],
+    gfciRequired: false,
+    afciRequired: true,
+    floorPlanClues: {
+      high: 'Sofa/seating and TV symbols visible. Place outlets behind seating areas, at TV wall (standard height + mounting height), and near fireplace if present.',
+      medium: 'Room labeled "Living" or "Family." Assume TV wall opposite main entry, seating in center. Place outlets on all walls at 12-ft intervals; add floor outlet for floating furniture.',
+      low: 'No label. Look for: largest open room adjacent to entry, often connected to dining area. Apply standard 12-ft spacing; consider floor outlet in center.',
+    },
+    keyRequirements: [
+      'Standard 12-ft wall spacing rule applies (NEC 210.52(A))',
+      'AFCI protection required on all circuits',
+      'At least one switched lighting outlet at each room entry',
+      'Floor outlets permitted but must be listed for floor installation',
+    ],
+    designTips: [
+      'TV wall: outlet at standard height (12 in.) and at mounting height (48–60 in.) plus low-voltage bracket',
+      'Fireplace wall: outlet on each side of fireplace for lamps and media equipment',
+      'Floor outlet in center of room for floating furniture arrangements',
+      'Consider dedicated 20A circuit for entertainment center to avoid tripped breakers',
+      'Dimmer switches for main lighting create ambiance flexibility',
+    ],
+    warnings: [
+      'AFCI protection required — do not use standard breakers',
+      'Floor outlets must be listed specifically for floor installation (NEC 210.52(A)(3))',
+    ],
+  },
+  {
+    id: 'dining-room',
+    name: 'Dining Room',
+    colorClass: 'bg-[#CDF765]/10 text-[#030424] border-[#CDF765]/40',
+    badgeColor: '#070942',
+    icon: '🍽️',
+    necSection: 'NEC 210.52(A)',
+    circuitType: '20A, 120V (recommended)',
+    amperage: '20A',
+    protection: 'AFCI',
+    outletSpacing: 'Every 12 ft',
+    minOutlets: 'Any wall ≥ 2 ft wide requires an outlet',
+    lightingRequired: true,
+    switchType: 'Single-pole at entry; dimmer recommended for chandelier',
+    dedicatedCircuits: ['Separate 20A circuit for appliance use (microwave, AC)'],
+    gfciRequired: false,
+    afciRequired: true,
+    floorPlanClues: {
+      high: 'Dining table symbol visible. Place outlets on walls surrounding the table, plus one near a buffet/sideboard wall.',
+      medium: 'Room labeled "Dining." Assume rectangular room adjacent to kitchen. Place outlets on all walls at 12-ft intervals; consider a floor outlet under the table location.',
+      low: 'No label. Look for: open rectangular space adjacent to kitchen, no plumbing fixtures. Apply standard spacing.',
+    },
+    keyRequirements: [
+      'Standard 12-ft wall spacing rule applies',
+      'Separate 20A circuit recommended for appliance use (NEC best practice)',
+      'AFCI protection required',
+      'Chandelier/pendant lighting requires switched outlet at entry',
+    ],
+    designTips: [
+      'Chandelier circuit should be on a dimmer switch',
+      'Consider a floor outlet centered under the dining table for holiday decorations and appliances',
+      'Buffet/sideboard wall benefits from a dedicated outlet for warming trays and serving appliances',
+      'Separate 20A circuit allows use of portable appliances without tripping kitchen circuits',
+    ],
+    warnings: [
+      'AFCI protection required on all circuits',
+    ],
+  },
+  {
+    id: 'home-office',
+    name: 'Home Office',
+    colorClass: 'bg-[#06004A]/8 text-[#030424] border-[#06004A]/20',
+    badgeColor: '#06004A',
+    icon: '💼',
+    necSection: 'NEC 210.52(A)',
+    circuitType: '20A, 120V (recommended)',
+    amperage: '20A',
+    protection: 'AFCI',
+    outletSpacing: 'Every 12 ft; extra outlets near desk',
+    minOutlets: 'Any wall ≥ 2 ft wide requires an outlet',
+    lightingRequired: true,
+    switchType: 'Single-pole at entry',
+    dedicatedCircuits: ['Dedicated 20A circuit for computer equipment (recommended)'],
+    gfciRequired: false,
+    afciRequired: true,
+    floorPlanClues: {
+      high: 'Desk symbol visible. Cluster outlets behind desk area (4–6 outlets), plus standard spacing on remaining walls.',
+      medium: 'Room labeled "Office" or "Study." Assume desk on one wall. Place outlets densely on the primary desk wall and at standard spacing elsewhere.',
+      low: 'No label. Small room (100–150 sq ft) with no closet or plumbing. Apply standard spacing with extra outlets on the longest wall.',
+    },
+    keyRequirements: [
+      'Standard 12-ft wall spacing rule applies',
+      'AFCI protection required',
+      'Dedicated 20A circuit recommended for computer equipment',
+      'Consider surge protection at the panel level (NEC 2023 requires SPD at service)',
+    ],
+    designTips: [
+      'Install 4–6 outlets on the desk wall, ideally in a raceway or multi-outlet strip',
+      'USB-C charging outlets at desk height (28–30 in.) for device charging',
+      'Dedicated circuit for computer equipment prevents interference from other loads',
+      'Consider low-voltage data/ethernet outlets at desk location',
+      'Task lighting circuit separate from ambient lighting',
+    ],
+    warnings: [
+      'AFCI protection required — standard breakers are not compliant',
+      'Surge Protection Device (SPD) at service panel required for new installations per 2023 NEC',
+    ],
+  },
+  {
+    id: 'laundry',
+    name: 'Laundry Room',
+    colorClass: 'bg-[#D1E3FF]/50 text-[#030424] border-[#D1E3FF]/70',
+    badgeColor: '#1705E5',
+    icon: '🧺',
+    necSection: 'NEC 210.52(F)',
+    circuitType: '20A, 120V + 30A, 240V',
+    amperage: '20A / 30A',
+    protection: 'GFCI+AFCI',
+    outletSpacing: 'At least one outlet near washer',
+    minOutlets: '1 dedicated 20A receptacle',
+    lightingRequired: true,
+    switchType: 'Single-pole at entry',
+    dedicatedCircuits: ['Washer (20A, 120V)', 'Electric Dryer (30A, 240V)', 'Gas Dryer (20A, 120V)'],
+    gfciRequired: true,
+    afciRequired: true,
+    floorPlanClues: {
+      high: 'Washer/dryer symbols visible. Place 20A outlet near washer location; 240V outlet near dryer location.',
+      medium: 'Room labeled "Laundry" or "Utility." Assume side-by-side washer/dryer. Place outlets on the appliance wall.',
+      low: 'No label. Small room (40–80 sq ft) with plumbing rough-in on one wall. Often near garage or back of house.',
+    },
+    keyRequirements: [
+      'At least one 20A circuit dedicated to laundry area (NEC 210.52(F))',
+      'Lighting circuit must be separate from the 20A laundry circuit',
+      'Electric dryers require a dedicated 30A, 240V, 4-wire circuit',
+      'All laundry receptacles must be GFCI and AFCI protected',
+      'Gas dryer still requires a 120V, 20A outlet for motor and controls',
+    ],
+    designTips: [
+      'Install outlet at 42–48 in. height behind washer for easy access',
+      'Consider a utility sink outlet (GFCI) if a laundry sink is present',
+      'Overhead lighting should be bright (LED shop light style) for visibility',
+    ],
+    warnings: [
+      'Electric dryer circuit MUST be 30A, 240V with 4 conductors (hot, hot, neutral, ground)',
+      'GFCI protection required for all laundry receptacles',
+      'Laundry lighting circuit must NOT be on the 20A laundry receptacle circuit',
+    ],
+    applianceCircuits: [
+      { name: 'Washing Machine', voltage: 120, amperage: 20, notes: 'Dedicated circuit, GFCI required' },
+      { name: 'Electric Dryer', voltage: 240, amperage: 30, notes: 'Dedicated 4-wire circuit' },
+      { name: 'Gas Dryer', voltage: 120, amperage: 20, notes: 'For motor/controls; GFCI required' },
+    ],
+  },
+  {
+    id: 'garage',
+    name: 'Garage',
+    colorClass: 'bg-[#06004A]/6 text-[#030424] border-[#06004A]/15',
+    badgeColor: '#030424',
+    icon: '🚗',
+    necSection: 'NEC 210.52(G)',
+    circuitType: '20A, 120V',
+    amperage: '20A',
+    protection: 'GFCI',
+    outletSpacing: 'At least one per vehicle bay',
+    minOutlets: '1 per vehicle bay, max height 5.5 ft',
+    lightingRequired: true,
+    switchType: 'Single-pole at entry; 3-way if multiple entries',
+    dedicatedCircuits: ['EV Charging (30A–60A, 240V recommended)', 'Garage Door Opener (20A)'],
+    gfciRequired: true,
+    afciRequired: false,
+    floorPlanClues: {
+      high: 'Vehicle bay and garage door symbols visible. Place GFCI outlet on each side wall of each bay.',
+      medium: 'Room labeled "Garage." Assume 1 or 2 vehicle bays. Place outlets on side walls and rear wall.',
+      low: 'No label. Large rectangular space (400–600 sq ft) attached to house, often with wide opening on one wall (garage door).',
+    },
+    keyRequirements: [
+      'At least one GFCI outlet per vehicle bay (NEC 210.52(G))',
+      'Outlets must not exceed 5.5 ft above floor',
+      'Dedicated 120V, 20A circuit for garage (separate from lighting)',
+      'Lighting outlet must be on a separate circuit from the 20A garage circuit',
+      'EV charging requires dedicated 240V circuit (30A minimum; 50A or 60A preferred)',
+    ],
+    designTips: [
+      'Place outlets on side walls at 48 in. height for workbench use',
+      'Ceiling outlet for garage door opener on dedicated circuit',
+      'EV charging outlet on back or side wall at 48 in. height',
+      'Consider 240V outlet for power tools and compressors',
+    ],
+    warnings: [
+      'All garage receptacles MUST be GFCI protected',
+      'EV charging circuit should be sized for future expansion (50A or 60A recommended)',
+      'Garage lighting circuit must be separate from the 20A receptacle circuit',
+    ],
+    applianceCircuits: [
+      { name: 'EV Charger (Level 2)', voltage: 240, amperage: 50, notes: 'Dedicated circuit; 50A or 60A recommended' },
+      { name: 'Garage Door Opener', voltage: 120, amperage: 20, notes: 'Ceiling-mounted outlet' },
+    ],
+  },
+  {
+    id: 'outdoor',
+    name: 'Outdoor / Patio / Deck',
+    colorClass: 'bg-[#CDF765]/25 text-[#030424] border-[#CDF765]/60',
+    badgeColor: '#06004A',
+    icon: '🌿',
+    necSection: 'NEC 210.52(E)',
+    circuitType: '20A, 120V',
+    amperage: '20A',
+    protection: 'GFCI',
+    outletSpacing: 'Front and rear of dwelling; one per accessible balcony/deck',
+    minOutlets: '1 front, 1 rear minimum',
+    lightingRequired: false,
+    switchType: 'Interior switch for exterior lighting',
+    dedicatedCircuits: ['Outdoor kitchen/BBQ (20A dedicated recommended)'],
+    gfciRequired: true,
+    afciRequired: false,
+    floorPlanClues: {
+      high: 'Patio/deck symbols visible. Place GFCI outlets on exterior walls adjacent to outdoor spaces.',
+      medium: 'Outdoor area labeled "Patio," "Deck," or "Porch." Place outlet on the exterior wall of the adjacent interior room.',
+      low: 'No label. Open area attached to house exterior, often with no walls or partial walls. Place outlets on the house wall facing the outdoor space.',
+    },
+    keyRequirements: [
+      'At least one GFCI outlet at the front of the dwelling (NEC 210.52(E))',
+      'At least one GFCI outlet at the rear of the dwelling',
+      'Balconies, decks, and porches accessible from inside require at least one outlet',
+      'All outdoor receptacles must be GFCI protected',
+      'Weather-resistant (WR) rated outlets required',
+      'In-use weatherproof covers required on all outdoor outlets',
+      'Outdoor lighting fixtures must be rated for wet or damp locations',
+    ],
+    designTips: [
+      'Place outlets at 18–24 in. height for ground-level use; 48 in. for countertop/BBQ use',
+      'Outdoor kitchen or BBQ area benefits from a dedicated 20A circuit',
+      'String light circuits should be on a GFCI-protected circuit with a timer',
+      'Consider low-voltage landscape lighting on a separate transformer circuit',
+    ],
+    warnings: [
+      'ALL outdoor receptacles must be GFCI protected — no exceptions',
+      'In-use weatherproof covers required even when not in use',
+      'Weather-resistant (WR) rated receptacles and covers are mandatory',
+    ],
+  },
+  {
+    id: 'hvac',
+    name: 'HVAC / Mechanical',
+    colorClass: 'bg-[#06004A]/10 text-[#030424] border-[#06004A]/25',
+    badgeColor: '#070942',
+    icon: '❄️',
+    necSection: 'NEC 210.63 / 210.64',
+    circuitType: 'Varies by equipment',
+    amperage: 'Varies',
+    protection: 'Service Only',
+    outletSpacing: 'Within 25 ft of HVAC equipment',
+    minOutlets: '1 service receptacle per HVAC unit',
+    lightingRequired: false,
+    switchType: 'Dedicated disconnect switch required',
+    dedicatedCircuits: ['Air Handler / Furnace (dedicated)', 'Air Conditioner / Heat Pump (dedicated)', 'Water Heater (dedicated)'],
+    gfciRequired: false,
+    afciRequired: false,
+    floorPlanClues: {
+      high: 'HVAC unit symbols visible. Place service outlet within 25 ft of each unit.',
+      medium: 'Mechanical room or utility closet labeled. Place service outlet on the wall near the equipment location.',
+      low: 'No label. Small closet or utility room near center of house (air handler) or exterior wall (condenser). Ensure service outlet placement.',
+    },
+    keyRequirements: [
+      'Service receptacle (125V, 15A or 20A) within 25 ft of HVAC equipment (NEC 210.63)',
+      'Service receptacle within 50 ft of electrical service equipment (NEC 210.64)',
+      'Dedicated disconnect switch required within sight of HVAC equipment',
+      'Electric water heater: dedicated circuit sized at 125% of continuous load',
+      'Electric furnace/air handler: dedicated circuit per manufacturer specs',
+      'Central AC/heat pump: dedicated circuit per equipment nameplate',
+    ],
+    designTips: [
+      'Service outlet must not be connected to the load side of the equipment disconnect',
+      'Label all HVAC circuits clearly at the panel',
+      'Consider a dedicated 240V circuit for electric water heater (30A typical)',
+    ],
+    warnings: [
+      'Service receptacle must NOT be on the load side of the equipment disconnect switch',
+      'All HVAC circuits must be dedicated — never share with other loads',
+      'Electric water heaters are continuous loads: circuit must be sized at 125% of rated load',
+    ],
+    applianceCircuits: [
+      { name: 'Central Air Conditioner / Heat Pump', voltage: 240, amperage: 30, notes: 'Per equipment nameplate; dedicated circuit' },
+      { name: 'Air Handler / Furnace', voltage: 240, amperage: 20, notes: 'Dedicated circuit; check nameplate' },
+      { name: 'Electric Water Heater', voltage: 240, amperage: 30, notes: 'Dedicated; size at 125% of load' },
+      { name: 'Tankless Water Heater', voltage: 240, amperage: 50, notes: 'May require multiple circuits; check specs' },
+    ],
+  },
+];
+
+export const floorPlanStrategies = [
+  {
+    quality: 'high' as FloorPlanQuality,
+    label: 'High Detail',
+    description: 'Floor plan includes furniture layout and room labels',
+    color: '#06004A',
+    icon: '✓',
+    approach: 'Use furniture positions to optimize outlet placement. Nightstands, desks, entertainment centers, and countertops directly inform outlet locations. Follow NEC minimums as a floor, not a ceiling.',
+    tips: [
+      'Place outlets on each side of the bed (nightstand locations)',
+      'Cluster outlets behind entertainment centers and desks',
+      'Add outlets at TV mounting height on media walls',
+      'Position kitchen outlets above countertop backsplash near appliance zones',
+      'Use floor outlets for floating furniture arrangements in living areas',
+    ],
+  },
+  {
+    quality: 'medium' as FloorPlanQuality,
+    label: 'Medium Detail',
+    description: 'Floor plan has room labels but no furniture',
+    color: '#CDF765',
+    icon: '~',
+    approach: 'Apply room-type conventions and standard furniture placement assumptions. Use room dimensions to infer typical furniture arrangements and place outlets accordingly.',
+    tips: [
+      'Bedrooms: assume bed on the longest uninterrupted wall; place outlets 5–6 ft apart on that wall',
+      'Living rooms: assume TV on the wall opposite the main entry; place outlets at standard and mounting heights',
+      'Kitchens: assume counter runs along walls with plumbing; apply 4-ft countertop spacing',
+      'Dining rooms: assume table centered; consider a floor outlet in the center',
+      'Home offices: assume desk on the wall opposite the door; cluster outlets there',
+    ],
+  },
+  {
+    quality: 'low' as FloorPlanQuality,
+    label: 'Low Detail',
+    description: 'Floor plan has no labels or furniture',
+    color: '#1705E5',
+    icon: '?',
+    approach: 'Use structural clues, room dimensions, and adjacency patterns to identify room types. Apply NEC minimums as the baseline and add standard design-based outlets.',
+    tips: [
+      'Kitchen: small room with plumbing rough-ins on multiple walls; often adjacent to dining',
+      'Bathrooms: very small rooms (50–100 sq ft) with plumbing fixtures in corners',
+      'Bedrooms: medium rooms (100–225 sq ft) with attached closets; no plumbing',
+      'Living/family: largest open room, often near entry; may connect to dining',
+      'Garage: large rectangular space with wide opening on one wall',
+      'Laundry: small utility room with plumbing rough-in; often near garage or back of house',
+    ],
+  },
+];
+
+export const protectionSummary = [
+  { type: 'GFCI', fullName: 'Ground Fault Circuit Interrupter', color: '#06004A', rooms: ['Kitchen', 'Bathroom', 'Laundry', 'Garage', 'Outdoor', 'Crawl Space', 'Unfinished Basement'], description: 'Protects against ground faults (shock hazard) in wet or damp locations. Trips within 5 milliseconds of detecting a 5mA ground fault.' },
+  { type: 'AFCI', fullName: 'Arc Fault Circuit Interrupter', color: '#1705E5', rooms: ['Bedroom', 'Living Room', 'Dining Room', 'Family Room', 'Hallway', 'Closet', 'Home Office', 'Laundry'], description: 'Protects against arc faults that can cause fires. Required in all habitable rooms per NEC 2023. Detects dangerous arcing conditions.' },
+  { type: 'GFCI+AFCI', fullName: 'Dual Protection Required', color: '#030424', rooms: ['Kitchen', 'Laundry', 'Finished Basement'], description: 'Both GFCI and AFCI protection required. Can be achieved with a dual-function AFCI/GFCI breaker or a combination device.' },
+];
+
+export const circuitLoadData = [
+  { room: 'Kitchen', circuits: 8, minRequired: 8, color: '#06004A' },
+  { room: 'Living Room', circuits: 2, minRequired: 1, color: '#1705E5' },
+  { room: 'Master Bedroom', circuits: 2, minRequired: 1, color: '#06004A' },
+  { room: 'Bedroom 2/3', circuits: 1, minRequired: 1, color: '#070942' },
+  { room: 'Bathroom', circuits: 2, minRequired: 1, color: '#1705E5' },
+  { room: 'Laundry', circuits: 3, minRequired: 2, color: '#06004A' },
+  { room: 'Garage', circuits: 2, minRequired: 1, color: '#030424' },
+  { room: 'HVAC/Mech', circuits: 3, minRequired: 2, color: '#070942' },
+  { room: 'Outdoor', circuits: 1, minRequired: 1, color: '#06004A' },
+];
+
+export const outletHeightGuide = [
+  { item: 'Standard Wall Outlet', height: '12–18 in.', notes: 'Bottom of box from finished floor' },
+  { item: 'Kitchen Countertop Outlet', height: '42–48 in.', notes: 'Above countertop surface (18 in. above counter)' },
+  { item: 'Bathroom Vanity Outlet', height: '36–42 in.', notes: 'Near sink, above countertop' },
+  { item: 'Wall Switch', height: '48 in.', notes: 'Bottom of box from finished floor (industry standard)' },
+  { item: 'TV Mounting Outlet', height: '48–60 in.', notes: 'At TV mounting height' },
+  { item: 'Nightstand Outlet', height: '24–28 in.', notes: 'Convenient for charging devices' },
+  { item: 'Desk/Workbench Outlet', height: '42–48 in.', notes: 'Above work surface' },
+  { item: 'Outdoor Outlet', height: '18–24 in.', notes: 'Ground level use; 48 in. for BBQ/countertop' },
+  { item: 'Garage Outlet', height: '48 in.', notes: 'Workbench height; max 5.5 ft per code' },
+  { item: 'EV Charger Outlet', height: '48 in.', notes: 'On wall near vehicle parking position' },
+];
