@@ -226,3 +226,42 @@
     color: #030424;
   }
 }
+
+/* ============================================================
+   Print / PDF Styles
+   ============================================================ */
+@media print {
+  /* Hide the dev preview banner */
+  [class*="preview"], [class*="Preview"],
+  [class*="banner"], [class*="Banner"],
+  div[style*="position: fixed"],
+  div[style*="position:fixed"] {
+    display: none !important;
+  }
+
+  /* Hide sidebar for print — content only */
+  aside, nav {
+    display: none !important;
+  }
+
+  /* Remove sticky header */
+  header {
+    position: static !important;
+  }
+
+  /* Ensure backgrounds print */
+  * {
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* Avoid page breaks inside cards */
+  .room-card, article, section > div {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  body {
+    background: white !important;
+  }
+}

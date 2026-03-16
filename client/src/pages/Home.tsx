@@ -16,6 +16,19 @@ const SPACIAL_LOGO_WHITE = 'https://d2xsxph8kpxj0f.cloudfront.net/31051966343797
 const SPACIAL_LOGO_DARK = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663437976481/UuAPpHfhL2bXHjq2u8bGzi/spacial-logo-dark_9d87632f.png';
 const KITCHEN_IMG = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663437976481/UuAPpHfhL2bXHjq2u8bGzi/kitchen-electrical-FujLw6UBdZLpLVjjJpsDT9.webp';
 const BATHROOM_IMG = 'https://d2xsxph8kpxj0f.cloudfront.net/310519663437976481/UuAPpHfhL2bXHjq2u8bGzi/bathroom-electrical-2GEdPP6px7cuiyG4Q38VCr.webp';
+// Unsplash room images for all remaining room types
+const ROOM_IMAGES: Record<string, string> = {
+  kitchen: KITCHEN_IMG,
+  bathroom: BATHROOM_IMG,
+  bedroom: 'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=80',
+  'living-room': 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=80',
+  'dining-room': 'https://images.unsplash.com/photo-1617806118233-18e1de247200?w=800&q=80',
+  'home-office': 'https://images.unsplash.com/photo-1593642632559-0c6d3fc62b89?w=800&q=80',
+  laundry: 'https://images.unsplash.com/photo-1626806787461-102c1bfaaea1?w=800&q=80',
+  garage: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80',
+  outdoor: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
+  hvac: 'https://images.unsplash.com/photo-1585771724684-38269d6639fd?w=800&q=80',
+};
 
 const navItems = [
   { id: 'overview', label: 'Overview' },
@@ -78,7 +91,7 @@ function FloorPlanQualitySelector({ selected, onChange }: { selected: FloorPlanQ
 
 function RoomCard({ room, quality }: { room: typeof roomData[0]; quality: FloorPlanQuality }) {
   const [expanded, setExpanded] = useState(false);
-  const img = room.id === 'kitchen' ? KITCHEN_IMG : room.id === 'bathroom' ? BATHROOM_IMG : null;
+  const img = ROOM_IMAGES[room.id] ?? null;
 
   return (
     <div className="border border-border bg-card rounded-sm overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-200">
