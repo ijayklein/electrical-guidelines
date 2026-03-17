@@ -31,6 +31,7 @@ export interface RoomElectricalData {
   keyRequirements: string[];
   designTips: string[];
   warnings: string[];
+  lightingNotes: string[];
   applianceCircuits?: ApplianceCircuit[];
 }
 
@@ -84,6 +85,15 @@ export const roomData: RoomElectricalData[] = [
       'Electric ranges require a 240V, 50A dedicated circuit — never share with other loads',
       'Dishwasher and garbage disposal each require their own dedicated GFCI-protected circuit',
     ],
+    lightingNotes: [
+      'Ambient: Recessed downlights on dimmer — 2700K–3000K for warmth; separate circuit from small-appliance circuits',
+      'Task: Under-cabinet LED strips above counter surface — 3500K–4000K; on a SEPARATE circuit from ambient',
+      'Accent: Adjustable recessed spotlights over island or display shelving; pendants over island on dimmer',
+      'Switch: Single-pole at entry for ambient; separate switch for under-cabinet task lighting',
+      'Code: Lighting circuit must be separate from the two 20A small-appliance circuits (NEC 210.52(B))',
+      'Code: Minimum 50 fc at countertop task surfaces; 30–40 fc general ambient (IES recommendation)',
+      'Design: Pendant lights over island at 2700K for warm ambiance; 30–36 in. above counter surface',
+    ],
     applianceCircuits: [
       { name: 'Electric Range / Cooktop', voltage: 240, amperage: 50, notes: 'Dedicated 4-wire circuit required' },
       { name: 'Refrigerator', voltage: 120, amperage: 20, notes: 'Dedicated circuit, GFCI required' },
@@ -134,6 +144,15 @@ export const roomData: RoomElectricalData[] = [
       'Exhaust fans with heaters MUST have their own dedicated 20A circuit',
       'Light fixtures near tubs must carry appropriate damp or wet location ratings',
     ],
+    lightingNotes: [
+      'Ambient: Flush-mount or recessed ceiling fixture — damp-rated if within 3 ft horizontal / 8 ft vertical of tub rim',
+      'Task: Vanity bar or Hollywood strip at mirror — at eye level (60–65 in. AFF), 3000K–3500K color temp',
+      'Accent: Shower niche light or toe-kick night light for safety',
+      'Code: NO pendant, chain, cord, or track fixtures within 3 ft horizontal / 8 ft vertical of tub rim (NEC 410.10(D))',
+      'Code: Fixtures inside shower zone MUST be rated for WET locations; outside shower but inside bathroom = DAMP rated',
+      'Switch: Single-pole at entry for ambient; separate switch for vent fan (vent fan must NOT be on lighting circuit)',
+      'Design: Side-lit vanity (sconces at 60 in. AFF on each side of mirror) eliminates facial shadows better than top-lit',
+    ],
   },
   {
     id: 'bedroom',
@@ -175,6 +194,15 @@ export const roomData: RoomElectricalData[] = [
       'AFCI protection is mandatory — standard breakers are not code-compliant for bedrooms',
       'Closet light fixtures have strict clearance requirements from clothing storage areas',
     ],
+    lightingNotes: [
+      'Ambient: Ceiling fixture or recessed downlights on dimmer — 2700K–3000K warm white for relaxation',
+      'Task: Reading sconces at nightstand height (54–60 in. AFF) on each side of bed — switched or plug-in',
+      'Accent: Closet light — LED surface-mount listed for closet use (0 in. clearance) or recessed (min 6 in. from storage)',
+      'Code: Closet — NO pendant fixtures; NO bare-bulb incandescent; LED/CFL recessed must be ≥ 6 in. from storage (NEC 410.16)',
+      'Code: At least one wall switch–controlled lighting outlet at room entry (NEC 210.70(A)(1))',
+      'Switch: Single-pole at entry; 3-way if two entry doors; dimmer on main circuit (IECC energy code)',
+      'Design: Vacancy sensor preferred over occupancy sensor for bedroom privacy; 2700K for sleep-friendly warmth',
+    ],
   },
   {
     id: 'living-room',
@@ -215,6 +243,14 @@ export const roomData: RoomElectricalData[] = [
       'AFCI protection required — do not use standard breakers',
       'Floor outlets must be listed specifically for floor installation (NEC 210.52(A)(3))',
     ],
+    lightingNotes: [
+      'Ambient: Recessed downlights or flush-mount ceiling fixture on dimmer — 2700K–3000K warm white',
+      'Task: Floor lamp or table lamp circuits — switched outlet or plug-in near seating areas',
+      'Accent: Adjustable recessed spotlights to highlight artwork, fireplace, or architectural features',
+      'Code: At least one switched lighting outlet at each entry point (NEC 210.70(A)(1)); 3-way if multiple entries',
+      'Switch: Dimmer strongly recommended (IECC); 3-way if room has two entry points',
+      'Design: 2700K–3000K warm white; consider cove or valance lighting for indirect ambient glow',
+    ],
   },
   {
     id: 'dining-room',
@@ -252,6 +288,15 @@ export const roomData: RoomElectricalData[] = [
     ],
     warnings: [
       'AFCI protection required on all circuits',
+    ],
+    lightingNotes: [
+      'Ambient: Chandelier or pendant over dining table on dimmer — 2700K warm white for intimacy',
+      'Task: Buffet/sideboard wall sconces or under-cabinet strip for serving surface',
+      'Accent: Chandelier is both decorative and ambient — must be on a dimmer (IECC)',
+      'Code: Chandelier over table requires switched outlet at entry; dimmer strongly recommended',
+      'Code: Chandelier >50 lbs requires fan-rated box or structural support (NEC 410.36)',
+      'Switch: Dimmer at entry for chandelier; separate switch for any accent/sconce circuits',
+      'Design: Chandelier at 7 ft AFF minimum; 30–36 in. above table surface; 2700K for warmth',
     ],
   },
   {
@@ -293,6 +338,15 @@ export const roomData: RoomElectricalData[] = [
       'AFCI protection required — standard breakers are not compliant',
       'Surge Protection Device (SPD) at service panel required for new installations per 2023 NEC',
     ],
+    lightingNotes: [
+      'Ambient: Recessed downlights or flush-mount ceiling fixture — occupancy sensor recommended (IECC)',
+      'Task: Desk task lamp — switched outlet at desk height (28–30 in.) on a separate circuit',
+      'Accent: Bookshelf or display lighting on a separate switched circuit',
+      'Code: At least one switched lighting outlet at entry (NEC 210.70(A)(1))',
+      'Switch: Single-pole at entry; occupancy/vacancy sensor preferred (IECC energy compliance)',
+      'Design: 3500K–4000K neutral white promotes alertness and focus; avoid warm 2700K in work environments',
+      'Design: Avoid overhead-only lighting — combine ceiling ambient with desk task light to eliminate screen glare',
+    ],
   },
   {
     id: 'laundry',
@@ -332,6 +386,14 @@ export const roomData: RoomElectricalData[] = [
       'Electric dryer circuit MUST be 30A, 240V with 4 conductors (hot, hot, neutral, ground)',
       'GFCI protection required for all laundry receptacles',
       'Laundry lighting circuit must NOT be on the 20A laundry receptacle circuit',
+    ],
+    lightingNotes: [
+      'Ambient: High-output LED flush-mount or shop light — occupancy sensor required by IECC in most jurisdictions',
+      'Task: Under-shelf LED strip above folding counter if present',
+      'Code: Lighting circuit must be SEPARATE from the 20A laundry receptacle circuit (NEC 210.52(F))',
+      'Code: Occupancy sensor required by IECC for laundry rooms in most jurisdictions',
+      'Switch: Occupancy sensor at entry (IECC); single-pole acceptable where IECC not enforced',
+      'Design: 3500K–4000K neutral white for accurate color sorting and stain detection; minimum 40 fc',
     ],
     applianceCircuits: [
       { name: 'Washing Machine', voltage: 120, amperage: 20, notes: 'Dedicated circuit, GFCI required' },
@@ -378,6 +440,15 @@ export const roomData: RoomElectricalData[] = [
       'All garage receptacles MUST be GFCI protected',
       'EV charging circuit should be sized for future expansion (50A or 60A recommended)',
       'Garage lighting circuit must be separate from the 20A receptacle circuit',
+    ],
+    lightingNotes: [
+      'Ambient: LED shop lights or high-bay LED fixtures — occupancy sensor required by IECC',
+      'Task: Workbench task lighting — LED strip or fluorescent under upper cabinets at 48–54 in. AFF',
+      'Code: Lighting circuit must be SEPARATE from the 20A garage receptacle circuit',
+      'Code: Exterior entry light required on pedestrian door (NEC 210.70(A)(2)(b))',
+      'Code: Occupancy sensor required by IECC for garage lighting in most jurisdictions',
+      'Switch: 3-way strongly recommended — control from interior house door AND near vehicle door',
+      'Design: 4000K–5000K cool white for maximum visibility; minimum 40–50 fc at floor level',
     ],
     applianceCircuits: [
       { name: 'EV Charger (Level 2)', voltage: 240, amperage: 50, notes: 'Dedicated circuit; 50A or 60A recommended' },
@@ -426,6 +497,16 @@ export const roomData: RoomElectricalData[] = [
       'In-use weatherproof covers required even when not in use',
       'Weather-resistant (WR) rated receptacles and covers are mandatory',
     ],
+    lightingNotes: [
+      'Ambient: Wall-mounted fixtures at entry doors — wet-rated; photocell or motion sensor required by IECC',
+      'Task: Soffit recessed downlights over patio/deck area — damp or wet rated as appropriate',
+      'Accent: Landscape uplights on low-voltage transformer; string lights on GFCI-protected circuit with timer',
+      'Code: Switched lighting outlet required on exterior side of ALL grade-level entry/exit doors (NEC 210.70(A)(2)(b))',
+      'Code: All outdoor fixtures must be rated for WET or DAMP locations as appropriate (NEC 410.10(A))',
+      'Code: Exterior lighting must have automatic shutoff (motion sensor, photocell, or timer) per IECC',
+      'Switch: Interior switch for exterior entry lights; motion sensor or photocell for security/ambient lighting',
+      'Design: 2700K–3000K warm white for ambiance; 4000K–5000K for security/safety lighting',
+    ],
   },
   {
     id: 'hvac',
@@ -466,6 +547,13 @@ export const roomData: RoomElectricalData[] = [
       'Service receptacle must NOT be on the load side of the equipment disconnect switch',
       'All HVAC circuits must be dedicated — never share with other loads',
       'Electric water heaters are continuous loads: circuit must be sized at 125% of rated load',
+    ],
+    lightingNotes: [
+      'Ambient: LED flush-mount or surface-mount fixture — occupancy sensor required by IECC',
+      'Code: At least one switched lighting outlet required in mechanical/utility rooms (NEC 210.70(A)(3))',
+      'Code: Occupancy sensor required by IECC for utility/mechanical rooms in most jurisdictions',
+      'Switch: Occupancy sensor at entry strongly recommended; single-pole acceptable where IECC not enforced',
+      'Design: 4000K–5000K cool white for maximum visibility during maintenance; minimum 30 fc',
     ],
     applianceCircuits: [
       { name: 'Central Air Conditioner / Heat Pump', voltage: 240, amperage: 30, notes: 'Per equipment nameplate; dedicated circuit' },

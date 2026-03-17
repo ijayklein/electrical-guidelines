@@ -7,6 +7,8 @@
 import { useState, useEffect, useRef } from 'react';
 import CircuitCalculator from '@/components/CircuitCalculator';
 import RoomDiagrams from '@/components/RoomDiagram';
+import IlluminationDiagram from '@/components/IlluminationDiagram';
+import LightingSection from '@/components/LightingSection';
 import { roomData, floorPlanStrategies, protectionSummary, circuitLoadData, outletHeightGuide } from '@/lib/electricalData';
 import type { FloorPlanQuality } from '@/lib/electricalData';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar } from 'recharts';
@@ -37,9 +39,11 @@ const navItems = [
   { id: 'rooms', label: 'Room-by-Room Guide' },
   { id: 'protection', label: 'GFCI & AFCI' },
   { id: 'circuits', label: 'Circuit Planning' },
-  { id: 'heights', label: 'Heights Reference' },
-  { id: 'diagrams', label: 'Room Diagrams' },
+  { id: 'lighting', label: 'Lighting & Illumination' },
+  { id: 'diagrams', label: 'Room Outlet Diagrams' },
+  { id: 'illum-diagrams', label: 'Room Illum. Diagrams' },
   { id: 'calculator', label: 'Circuit Calculator' },
+  { id: 'heights', label: 'Heights Reference' },
 ];
 
 function CodeBadge({ code }: { code: string }) {
@@ -197,6 +201,36 @@ function RoomCard({ room, quality }: { room: typeof roomData[0]; quality: FloorP
                     <div key={i} className="warning-callout text-sm text-foreground">{w}</div>
                   ))}
                 </div>
+              </div>
+            )}
+
+            {/* Lighting Notes */}
+            {room.lightingNotes && room.lightingNotes.length > 0 && (
+              <div>
+                <h4 className="text-sm font-bold uppercase tracking-wider mb-2" style={{ fontFamily: 'var(--font-display)', color: '#06004A' }}>
+                  💡 Lighting & Illumination
+                </h4>
+                <ul className="space-y-1.5">
+                  {room.lightingNotes.map((note, i) => {
+                    const isCode = note.startsWith('Code:');
+                    const isSwitch = note.startsWith('Switch:');
+                    const isDesign = note.startsWith('Design:');
+                    const isTask = note.startsWith('Task:');
+                    const isAccent = note.startsWith('Accent:');
+                    return (
+                      <li key={i} className="text-sm flex gap-2 items-start">
+                        <span className="flex-shrink-0 font-bold text-xs mt-0.5 px-1.5 py-0.5 rounded-sm"
+                          style={{
+                            backgroundColor: isCode ? '#06004A' : isSwitch ? '#1705E5' : isDesign ? '#CDF765' : isTask ? '#D1E3FF' : isAccent ? '#e8f4e8' : '#f5f5f1',
+                            color: isCode ? '#CDF765' : isSwitch ? '#fff' : isDesign ? '#030424' : isTask ? '#030424' : isAccent ? '#1a4a1a' : '#06004A',
+                          }}>
+                          {isCode ? 'CODE' : isSwitch ? 'SW' : isDesign ? 'DESIGN' : isTask ? 'TASK' : isAccent ? 'ACCENT' : 'AMB'}
+                        </span>
+                        <span className="text-foreground leading-snug">{note.replace(/^(Code:|Switch:|Design:|Task:|Accent:|Ambient:)\s*/, '')}</span>
+                      </li>
+                    );
+                  })}
+                </ul>
               </div>
             )}
 
@@ -752,6 +786,19 @@ export default function Home() {
               </div>
             </section>
 
+            {/* Lighting & Illumination */}
+            <section
+              id="lighting"
+              ref={el => { sectionRefs.current['lighting'] = el; }}
+            >
+              <SectionHeader
+                number="06"
+                title="Lighting & Illumination"
+                subtitle="NEC code requirements, design layers, switch ergonomics, and space-specific rules"
+              />
+              <LightingSection />
+            </section>
+
             {/* Room Diagrams */}
             <section
               id="diagrams"
@@ -765,13 +812,26 @@ export default function Home() {
               <RoomDiagrams />
             </section>
 
+            {/* Room Illumination Placement Diagrams */}
+            <section
+              id="illum-diagrams"
+              ref={el => { sectionRefs.current['illum-diagrams'] = el; }}
+            >
+              <SectionHeader
+                number="08"
+                title="Room Illumination Placement Diagrams"
+                subtitle="Annotated floor plan diagrams showing NEC-compliant light fixture positions, switch types, and illumination zones"
+              />
+              <IlluminationDiagram />
+            </section>
+
             {/* Circuit Calculator */}
             <section
               id="calculator"
               ref={el => { sectionRefs.current['calculator'] = el; }}
             >
               <SectionHeader
-                number="08"
+                number="09"
                 title="Circuit Calculator"
                 subtitle="Enter room dimensions to estimate NEC-minimum outlet count and circuit load"
               />
@@ -784,7 +844,7 @@ export default function Home() {
               ref={el => { sectionRefs.current['heights'] = el; }}
             >
               <SectionHeader
-                number="09"
+                number="10"
                 title="Installation Heights Quick Reference"
                 subtitle="Industry-standard mounting heights for outlets, switches, and fixtures"
               />
